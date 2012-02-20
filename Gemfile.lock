@@ -1,0 +1,11 @@
+GEM
+  specs:
+    geokit (1.6.5)
+      multi_json
+    multi_json (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  geokit
