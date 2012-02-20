@@ -5,8 +5,11 @@ framework 'Cocoa'
 framework 'CoreLocation'
 
 def locationManager(manager, didUpdateToLocation: location, fromLocation: from_location)
-  puts location.coordinate.latitude
-  puts location.coordinate.longitude
+  formatted_location = "#{location.coordinate.latitude},#{location.coordinate.longitude}"
+  reverse_location = Geokit::Geocoders::GoogleGeocoder.reverse_geocode(formatted_location)
+  @@location_menu_item.title = "You are currently in #{reverse_location.city}, #{reverse_location.state}"
+
+  puts formatted_location
 end
 
 def quit(sender)
@@ -18,10 +21,10 @@ application = NSApplication.sharedApplication
 menu = NSMenu.new
 menu.initWithTitle('Wolfbrain Locator')
 
-menu_item = NSMenuItem.new
-menu_item.title = 'You are currently in Atlanta, GA'
-menu_item.target = self
-menu.addItem(menu_item)
+@@location_menu_item = NSMenuItem.new
+@@location_menu_item.title = 'The mighty Wolfbrain Locator is ineffective against your dark hipster magic!'
+@@location_menu_item.target = self
+menu.addItem(@@location_menu_item)
 
 menu_item = NSMenuItem.new
 menu_item.title = 'Quit'
