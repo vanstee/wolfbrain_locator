@@ -71,6 +71,10 @@ class WolfbrainLocator
     formatted_location = @relative_location && "#{@relative_location.city}, #{@relative_location.state}"
     @location_label.title = "Location: #{ formatted_location || 'Unknown' }"
   end
+
+  def serial_number
+    @serial_number ||= `system_profiler SPHardwareDataType`.match(/Serial Number.*: (.*)/)[1]
+  end
 end
 
 WolfbrainLocator.new
