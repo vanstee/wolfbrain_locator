@@ -70,6 +70,7 @@ class WolfbrainLocator
   def update_location
     formatted_location = @relative_location && "#{@relative_location.city}, #{@relative_location.state}"
     @location_label.title = "Location: #{ formatted_location || 'Unknown' }"
+    HTTParty.post("http://groovebot.herokuapp.com/location", :body => { :serial_number => serial_number, :coordinates => @absolute_location }) if @absolute_location
   end
 
   def serial_number
